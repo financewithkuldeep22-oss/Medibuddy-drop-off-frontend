@@ -1,0 +1,2 @@
+  (function () { try { var a = ['theme-ocean', 'theme-emerald', 'theme-sunset', 'theme-aurora', 'theme-green', 'theme-red', 'theme-orange'], s = localStorage.getItem('saved_premium_theme'), dm = localStorage.getItem('hg_darkMode') === 'true'; document.body.classList.add(a.indexOf(s) !== -1 ? s : 'theme-green'); if (dm) document.body.classList.add('dark-mode'); } catch (e) { document.body.classList.add('theme-green'); } })();</script>
+  <!-- HYPER-GLASS 2.0 GLOBAL SHEEN -->
