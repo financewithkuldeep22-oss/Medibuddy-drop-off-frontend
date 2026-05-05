@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<!-- HYPER-GLASS 2.0 ACTIVATED - PREMIUM UI ENABLED -->
+<html lang="en">
+
+<head>
+  <base target="_top">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Redcliffe Labs X Medibuddy Drop-off</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- ⚡ ANTI-FOUC ENGINE — Runs synchronously before first paint -->
+  <script src="js/anti-fouc.js"></script>
+  
+  <!-- Theme Initialization -->
+  <script src="js/theme-init.js"></script>
+</head>
+
+<body>
+  <!-- Body content from main-layout.html -->
+  <!-- HYPER-GLASS 2.0 GLOBAL SHEEN -->
+  <div id="global-sheen"></div>
+  <div id="login-overlay" class="login-overlay">
+    <div class="login-card">
+      <div class="brand-animation">
+        <img src="https://lh3.googleusercontent.com/d/1rWGnTk485-dqc_ADtLn_RuSmDzgomV0U" alt="Redcliffe Labs"
+          class="logo-redcliffe" style="height: 35px; object-fit: contain;">
+
+        <svg class="modern-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+          stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+
+        <img src="https://www.medibuddy.in/assets/logos/medibuddyWithName.svg" alt="MediBuddy" class="logo-medibuddy"
+          style="height: 30px;">
+      </div>
+
+      <h2 style="color: var(--text-main); margin-bottom: 25px; font-size: 18px; font-weight: 800; line-height: 1.4;">
+        Redcliffe Labs × Medibuddy<br>
+        <span style="color: var(--primary); font-size: 15px;">Drop-off Portal Access</span>
+      </h2>
+
+      <div class="input-group">
+        <span class="input-icon">✉️</span>
+        <input type="email" id="login-email" class="login-input-modern" placeholder="Email Address">
+      </div>
+
+      <div class="input-group">
+        <span class="input-icon">🔒</span>
+        <input type="password" id="login-password" class="login-input-modern" placeholder="Password"
+          onkeypress="if(event.key === 'Enter') window.handleEmailLogin()">
+      </div>
+
+      <div style="text-align: right; margin-bottom: 15px;">
+        <span id="forgot-password-text"
+          style="font-size: 11px; color: var(--primary); text-decoration: none; font-weight: 700; cursor: pointer; transition: 0.2s;"
+          onclick="window.handleForgotPassword()" onmouseover="this.style.textDecoration='underline'"
+          onmouseout="this.style.textDecoration='none'">Forgot Password?</span>
+      </div>
+
+      <button class="btn-modern-primary" id="email-login-btn" onclick="window.handleEmailLogin()">
+        Login with Email <span style="margin-left:6px; font-size: 16px;">→</span>
+      </button>
+
+      <div class="divider"><span>OR</span></div>
+
+      <button class="login-btn-google" id="google-login-btn" onclick="window.handleGoogleLogin()">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google"
+          style="width:18px;">
+        <span id="login-btn-text">Sign in with Google</span>
+      </button>
+
+      <div style="margin-top: 25px; font-size: 10px; color: var(--text-sub); font-weight: 600;">
+        Admin Access Required for New Users. Contact Support.
+      </div>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <!-- 🎯 BISHT JI WELCOME TOUR MODAL -->
+  <div id="bishtJiTourModal">
+    <div class="tour-card">
+      <button class="tour-skip-btn" onclick="closeBishtJiTour()">✕ Skip Tour</button>
+
+      <div class="tour-header">
+        <div class="tour-avatar">👨‍💼</div>
+        <div class="tour-title-group">
+          <h2 class="tour-title">Welcome to Bisht Ji!</h2>
+          <div class="tour-subtitle">Your AI-powered dashboard assistant</div>
+        </div>
+      </div>
+
+      <div class="tour-content">
+        <p class="tour-intro">
+          Namaskar bhaiya! Main Bisht Ji hoon. Aapke Redcliffe Labs × MediBuddy Dashboard ka AI assistant hoon.
+          Main aapki har choti mein madad karunga - reports se lekar email tak, PDF processing se lekar real-time
+          analytics tak!
+        </p>
+
+        <div class="tour-features">
+          <div class="tour-feature">
+            <div class="tour-feature-icon" style="background: linear-gradient(135deg, #3b82f6, #2563eb);">📊</div>
+            <div class="tour-feature-text">
+              <div class="tour-feature-title">Real-time Dashboard</div>
+              <div class="tour-feature-desc">Live pending reports & status</div>
+            </div>
+          </div>
+
+          <div class="tour-feature">
+            <div class="tour-feature-icon" style="background: linear-gradient(135deg, #10b981, #059669);">📥</div>
+            <div class="tour-feature-text">
+              <div class="tour-feature-title">Smart PDF Dropzone</div>
+              <div class="tour-feature-desc">Auto-extract & share reports</div>
+            </div>
+          </div>
+
+          <div class="tour-feature">
+            <div class="tour-feature-icon" style="background: linear-gradient(135deg, #8b5cf6, #7e22ce);">🤖</div>
+            <div class="tour-feature-text">
+              <div class="tour-feature-title">API Auto-Match</div>
+              <div class="tour-feature-desc">Sync partner bookings</div>
+            </div>
+          </div>
+
+          <div class="tour-feature">
+            <div class="tour-feature-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">📧</div>
+            <div class="tour-feature-text">
+              <div class="tour-feature-title">Email Generator</div>
+              <div class="tour-feature-desc">AI-powered email drafts</div>
+            </div>
+          </div>
+
+          <div class="tour-feature">
+            <div class="tour-feature-icon" style="background: linear-gradient(135deg, #ec4899, #db2777);">📸</div>
+            <div class="tour-feature-text">
+              <div class="tour-feature-title">TRF Scanner</div>
+              <div class="tour-feature-desc">Bulk scan & match TRFs</div>
+            </div>
+          </div>
+
+          <div class="tour-feature">
+            <div class="tour-feature-icon" style="background: linear-gradient(135deg, #ef4444, #dc2626);">🚨</div>
+            <div class="tour-feature-text">
+              <div class="tour-feature-title">Daily Audit</div>
+              <div class="tour-feature-desc">Track TAT & performance</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tour-actions">
+        <button class="tour-start-btn" onclick="startBishtJiTour()">🎯 Start Dashboard Tour</button>
+        <button class="tour-later-btn" onclick="closeBishtJiTour()">Maybe Later</button>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div id="successPopup" class="success-popup"
+    style="max-width: 480px; width: 90%; max-height: 85vh; display: flex; flex-direction: column; z-index: 99999; padding: 0; overflow: hidden; border: 1px solid var(--glass-border); border-radius: 20px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.3); background: var(--modal-bg);">
+
+    <div
+      style="background: linear-gradient(135deg, #f8fafc, #f1f5f9); padding: 35px 20px 20px; text-align: center; border-bottom: 1px solid #e2e8f0; position: relative;">
+      <div
+        style="position: absolute; top: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg, #10b981, #3b82f6, #a855f7);">
+      </div>
+      <div
+        style="font-size: 55px; line-height: 1; margin-bottom: 15px; animation: popBounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+        🚀</div>
+      <h2 style="color: #0f172a; margin: 0; font-size: 24px; font-weight: 800; letter-spacing: -0.5px;">Task
+        Completed!</h2>
+      <p style="color: #64748b; margin: 6px 0 0 0; font-size: 13px; font-weight: 500;">Here is the final summary
+        of the process</p>
+    </div>
+
+    <div style="padding: 25px 25px 15px 25px;">
+      <div id="successPopupText"
+        style="color: var(--text-main); font-size: 14px; font-weight: 600; white-space: pre-wrap; text-align: left; overflow-y: auto; background: var(--details-bg); padding: 20px; border-radius: 12px; border: 1px solid var(--border-light); line-height: 2; max-height: 350px; box-shadow: inset 0 2px 8px rgba(0,0,0,0.02);">
+        Logs will appear here...
+      </div>
+    </div>
+
+    <div style="padding: 0 25px 25px 25px;">
+      <button class="btn-apple"
+        style="padding: 16px 20px; width: 100%; font-size: 16px; font-weight: 700; justify-content: center; background: #0ea5e9; color: white; border: none; border-radius: 12px; box-shadow: 0 6px 15px rgba(14, 165, 233, 0.3); transition: all 0.2s ease;"
+        onclick="document.getElementById('successPopup').classList.remove('show')"
+        onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 20px rgba(14, 165, 233, 0.4)';"
+        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 6px 15px rgba(14, 165, 233, 0.3)';">
+        Got it, Close!
+      </button>
+    </div>
+
+    <style>
+      @keyframes popBounce {
+        0% {
+          transform: scale(0) translateY(20px);
+          opacity: 0;
+        }
+
+        50% {
+          transform: scale(1.2) translateY(-10px);
+          opacity: 1;
+        }
+
+        100% {
+          transform: scale(1) translateY(0);
+        }
+      }
+    </style>
+  </div>
+
+  <button class="ai-fab" onclick="toggleAiPanel()"
+    style="position: fixed; bottom: 15px; right: 15px; padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; background: linear-gradient(135deg, #4f46e5, #9333ea); color: white; border: none; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 9999; display: flex; align-items: center; gap: 5px; transition: transform 0.2s;">
+    ✨ Ask Bisht Ji
+  </button>
+  <div class="ai-panel" id="aiPanel">
+    <div class="ai-header">
+      <div>
+        <div style="font-size: 16px;">👨‍💼 Bisht Ji</div>
+        <div style="font-size: 10px; opacity: 0.8;">Redcliffe LIMS AI Expert</div>
+      </div>
+      <div style="display: flex; gap: 15px; align-items: center;"><button class="speaker-toggle" id="aiSpeakerToggle"
+          onclick="toggleVoiceOutput()">🔊</button><button
+          style="background:none; border:none; color:white; font-size:20px; cursor:pointer;"
+          onclick="toggleAiPanel()">✕</button></div>
+    </div>
+    <div class="ai-body" id="aiBody">
+      <div class="chat-bubble chat-ai">Namaskar bhaiya! Main Bisht Ji hoon. Aaj dashboard data mein kya check karna hai?
+      </div>
+      <div class="tour-suggestion-chip" onclick="startPremiumTour()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 16v-4M12 8h.01" />
+        </svg>
+        Start Dashboard Tour
+      </div>
+    </div>
+    <div class="ai-footer">
+      <button class="ai-mic" id="aiMicBtn" onclick="toggleDictation()">🎤</button>
+      <input type="text" class="ai-input" id="aiInput" placeholder="Ask about today's reports..."
+        onkeypress="if(event.key === 'Enter') sendToBishtJi()">
+      <button class="ai-send" onclick="sendToBishtJi()">➤</button>
+    </div>
+  </div>
+
+  <div id="loader" style="display:none;">
+    <div class="scene-container" id="loader-anim" style="font-size: 50px;">⏳</div>
+    <div id="loader-text">Loading data...</div>
+  </div>
+
+  <div id="uploadCsvModal" class="modal-overlay">
+    <div class="modal-content" style="max-width: 500px; text-align: center;">
+      <div class="modal-header">
+        <div>
+          <h2 class="modal-title">📥 Import Data</h2>
+          <div style="font-size:11px; color:var(--text-sub); margin-top:2px;">Upload bulk bookings to the database.
+          </div>
+        </div><button class="close-btn" onclick="closeModal('uploadCsvModal')">✕</button>
+      </div>
+
+      <div style="padding: 10px 0 20px 0;">
+        <button class="btn-apple" onclick="downloadImportTemplate()"
+          style="background:rgba(59,130,246,0.1); color:#3b82f6; width:100%; border:1px dashed #3b82f6; padding:12px; font-weight:700; font-size:12px; margin-bottom:15px; justify-content:center;">
+          📥 Download Sample Excel Template
+        </button>
+
+        <div class="file-drop-area" id="import-dropzone" onclick="document.getElementById('csv-file').click()"
+          style="background:rgba(59,130,246,0.02); border:2px dashed #93c5fd;">
+          <div style="font-size: 32px; margin-bottom: 8px;">📄</div>
+          <div style="font-size: 14px; font-weight: 700; color:var(--text-main);">Drag & Drop File Here</div>
+          <div style="font-size: 11px; color: var(--text-sub); margin-top: 4px;">Excel (.xlsx) or CSV files only</div>
+        </div>
+        <input type="file" id="csv-file" accept=".csv, .xlsx, .xls" style="display: none;"
+          onchange="document.getElementById('csv-file-name').innerText = this.files[0] ? this.files[0].name : ''">
+        <div id="csv-file-name" style="margin: 12px 0; font-size: 12px; font-weight: 700; color: var(--success);"></div>
+
+        <button class="btn-apple btn-primary"
+          style="width: 100%; padding: 14px; justify-content: center; font-size: 14px; box-shadow:0 4px 12px rgba(59,130,246,0.2);"
+          onclick="handleCsvUpload()">🚀 Upload & Process</button>
+      </div>
+    </div>
+  </div>
+  <input type="hidden" id="import-city-select" value="Mumbai"> <!-- Hidden fallback -->
+
+  <div id="dropzoneModal" class="modal-overlay">
+    <div class="modal-content" style="max-width: 650px; text-align: center; transition: all 0.3s ease;">
+      <div class="modal-header"
+        style="border-bottom: 1px solid var(--border-light); padding-bottom: 15px; margin-bottom: 20px;">
+        <div style="text-align: left;">
+          <h2 class="modal-title" style="color: #a855f7; display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 24px;">⚡</span> Smart PDF & ZIP Dropzone
+          </h2>
+          <div style="font-size: 12px; color: var(--text-sub); margin-top: 4px;">Drop multiple PDFs or a
+            single ZIP archive. We'll auto-extract names and mark them 'Shared'.</div>
+        </div>
+        <button class="close-btn" onclick="closeModal('dropzoneModal')">✕</button>
+      </div>
+
+      <div id="pdf-drop-area" class="file-drop-area"
+        style="border: 2px dashed #a855f7; background: rgba(168, 85, 247, 0.05); padding: 50px 20px; border-radius: 16px; cursor: pointer; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);"
+        onclick="document.getElementById('pdf-file-input').click()">
+        <div style="font-size: 50px; margin-bottom: 15px; text-shadow: 0 4px 10px rgba(168, 85, 247, 0.3);">🗂️
+        </div>
+        <div style="font-size: 16px; font-weight: 800; color: #9333ea; margin-bottom: 8px;">Drag & Drop PDFs or
+          a ZIP File Here</div>
+        <div
+          style="font-size: 12px; color: var(--text-sub); background: white; padding: 4px 12px; border-radius: 12px; display: inline-block; border: 1px solid var(--border-light); box-shadow: 0 2px 5px rgba(0,0,0,0.02); font-weight: 600;">
+          Supports .pdf and .zip formats</div>
+      </div>
+
+      <div id="pdf-processing-container"
+        style="display: none; margin-top: 20px; text-align: left; animation: dropDown 0.4s ease;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+          <span style="font-size: 13px; font-weight: 800; color: var(--text-main);" id="pdf-status-title">Processing
+            Files...</span>
+          <span
+            style="font-size: 11px; font-weight: bold; color: #a855f7; background: #f3e8ff; padding: 4px 10px; border-radius: 12px; border: 1px solid #e9d5ff;"
+            id="pdf-count-badge">0 Files Found</span>
+        </div>
+        <div
+          style="width: 100%; height: 8px; background: #f1f5f9; border-radius: 4px; overflow: hidden; margin-bottom: 12px; box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);">
+          <div id="pdf-progress-bar"
+            style="width: 0%; height: 100%; background: linear-gradient(90deg, #a855f7, #ec4899); transition: width 0.4s ease, background 0.4s ease;">
+          </div>
+        </div>
+        <div id="pdf-log-box"
+          style="height: 180px; overflow-y: auto; background: #0f172a; color: #f8fafc; padding: 15px; border-radius: 10px; font-family: 'SFMono-Regular', Consolas, monospace; font-size: 11.5px; line-height: 1.6; box-shadow: inset 0 4px 15px rgba(0,0,0,0.3); border: 1px solid #334155;">
+        </div>
+      </div>
+
+      <input type="file" id="pdf-file-input" accept=".pdf, .zip, application/zip" multiple style="display: none;"
+        onchange="handlePdfSelect(this.files)">
+    </div>
+  </div>
+  <div class="mac-window" id="editModal"
+    style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); z-index: 10000; align-items: center; justify-content: center; flex-direction: column; backdrop-filter: blur(8px);">
+    <div
+      style="width: 90%; max-width: 800px; background: var(--card-bg); padding: 25px; border-radius: 12px; box-shadow: 0 15px 50px rgba(0,0,0,0.6); border: 1px solid var(--border-light); position: relative;">
+      <h3
+        style="margin-top: 0; margin-bottom: 15px; color: var(--text-main); font-size: 18px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;">
+        ✏️ Edit Full Record (All changes logged)</h3>
+
+      <input type="hidden" id="edit-rid">
+      <input type="hidden" id="edit-city">
+      <input type="hidden" id="edit-searchid">
+      <input type="hidden" id="edit-pname">
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+        <div><label style="font-size:11px; font-weight:bold; color:var(--text-sub);">Booking ID</label><input
+            type="text" id="edit-bid" class="clean-input" style="width:100%;"></div>
+        <div><label style="font-size:11px; font-weight:bold; color:var(--text-sub);">Patient Name</label><input
+            type="text" id="edit-name" class="clean-input" style="width:100%;"></div>
+        <div style="display:flex; gap:10px;">
+          <div style="flex:1;"><label style="font-size:11px; font-weight:bold; color:var(--text-sub);">Age</label><input
+              type="text" id="edit-age" class="clean-input" style="width:100%;"></div>
+          <div style="flex:1;"><label style="font-size:11px; font-weight:bold; color:var(--text-sub);">Gender</label>
+            <select id="edit-gender" class="clean-input" style="width:100%;">
+              <option>Male</option>
+              <option>Female</option>
+            </select>
+          </div>
+        </div>
+
+        <div><label style="font-size:11px; font-weight:bold; color:var(--text-sub);">Tests /
+            Packages</label><input type="text" id="edit-tests" class="clean-input" style="width:100%;">
+        </div>
+        <div><label style="font-size:11px; font-weight:bold; color:var(--text-sub);">FBS/RBS</label>
+          <select id="edit-fbs" class="clean-input" style="width:100%;">
+            <option value="">N/A</option>
+            <option>FBS</option>
+            <option>RBS</option>
+            <option>Only Urine</option>
+          </select>
+        </div>
+        <div><label style="font-size:11px; font-weight:bold; color:var(--text-sub);">Partner Type</label>
+          <select id="edit-type" class="clean-input" style="width:100%;">
+            <option>Retail</option>
+            <option>PPMC</option>
+            <option>-</option>
+          </select>
+        </div>
+
+        <div><label style="font-size:11px; font-weight:bold; color:var(--text-sub);">Barcode No.</label><input
+            type="text" id="edit-barcode" class="clean-input" style="width:100%;"></div>
+        <div><label style="font-size:11px; font-weight:bold; color:var(--text-sub);">Collection
+            Time</label><input type="text" id="edit-col" class="clean-input" style="width:100%;" placeholder="10:00 AM">
+        </div>
+        <div><label style="font-size:11px; font-weight:bold; color:var(--text-sub);">Report Status</label>
+          <select id="edit-status" class="clean-input" style="width:100%;">
+            <option>Pending</option>
+            <option>Under processing</option>
+            <option>High TAT</option>
+            <option>Shared</option>
+            <option>N/A</option>
+          </select>
+        </div>
+
+        <div><label style="font-size:11px; font-weight:bold; color:var(--text-sub);">Phlebo Name</label><input
+            type="text" id="edit-phlebo" class="clean-input" style="width:100%;"></div>
+        <div><label style="font-size:11px; font-weight:bold; color:var(--text-sub);">Phlebo Mobile</label><input
+            type="text" id="edit-phone" class="clean-input" style="width:100%;"></div>
+        <div><label style="font-size:11px; font-weight:bold; color:var(--text-sub);">Remarks</label><input type="text"
+            id="edit-rem" class="clean-input" style="width:100%;"></div>
+      </div>
+
+      <div style="display: flex; gap: 10px;">
+        <button class="btn-apple" style="flex: 1; justify-content: center; background: #e2e8f0; color: #475569;"
+          onclick="document.getElementById('editModal').style.display='none'; resumeSync();">Cancel</button>
+        <button class="btn-apple btn-primary" style="flex: 1; justify-content: center;" onclick="saveFullEdit()">💾 Save
+          & Log Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="commentModal" class="modal-overlay">
+    <div class="modal-content" style="max-width: 750px;">
+      <div class="modal-header">
+        <div>
+          <h2 class="modal-title" style="font-size: 18px;">Comment History</h2>
+          <div id="comment-subtitle" style="font-size: 12px; color: var(--text-sub); margin-top: 4px;"></div>
+        </div>
+        <button class="close-btn" onclick="closeModal('commentModal')">✕</button>
+      </div>
+      <div id="comment-history-box">No comments found for this record.</div>
+      <textarea id="new-comment-text" class="new-comment-area" placeholder="Add Comment.." onfocus="pauseSync()"
+        onblur="resumeSync()"></textarea>
+      <div style="text-align: center;">
+        <button class="btn-apple"
+          style="margin-top: 10px; padding: 8px 30px; border: 1px solid #ccc; font-weight: bold; background: #f8f9fa; color: #333;"
+          onclick="submitNewComment()">Add Comment</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="waModal" class="modal-overlay">
+    <div class="modal-content" style="max-width: 800px;">
+      <div class="modal-header">
+        <div>
+          <h2 class="modal-title">📱 Pending Reports List</h2>
+          <div style="font-size: 12px; color: var(--text-sub); margin-top: 4px;">Copy pending Booking IDs to
+            share with local teams.</div>
+        </div>
+
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <button class="btn-apple btn-primary" style="padding: 6px 14px; font-size: 12px;"
+            onclick="exportPendingBookingCSV()">⬇ Export Booking CSV</button>
+          <button class="close-btn" onclick="closeModal('waModal')">✕</button>
+        </div>
+      </div>
+      <div id="wa-export-container"></div>
+    </div>
+  </div>
+
+  <!-- FULL PAGE: CITY SUMMARY -->
+  <div id="cityFullPage" class="full-page-view" style="background: #f1f5f9;">
+    <div class="full-page-header">
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <div
+          style="width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, #10b981, #059669); display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; box-shadow: 0 4px 10px rgba(16,185,129,0.3);">
+          🏙️</div>
+        <div>
+          <h2 class="modal-title" style="color: #0f172a; font-size: 18px; line-height: 1.2;">City Summary</h2>
+          <div id="city-summary-date-title"
+            style="font-size: 12px; color: #475569; font-weight: 700; background: #e2e8f0; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-top: 4px;">
+            Loading Date...</div>
+        </div>
+      </div>
+      <div style="display: flex; gap: 12px; align-items: center;">
+        <button class="btn-apple" onclick="setCitySummaryScope(0)"
+          style="font-weight: 600; color: #334155; border: 1px solid #cbd5e1; background: #fff; padding: 6px 14px;">Today</button>
+        <button class="btn-apple" onclick="setCitySummaryScope(1)"
+          style="font-weight: 600; color: #334155; border: 1px solid #cbd5e1; background: #fff; padding: 6px 14px;">Yesterday</button>
+        <div
+          style="display: flex; align-items: center; gap: 8px; background: white; padding: 4px 10px; border-radius: 8px; border: 1px solid #cbd5e1;">
+          <span style="font-size: 11px; font-weight: 700; color: #64748b;">📅 Filter:</span>
+          <input type="date" id="city-summary-picker" onchange="setCitySummaryScope(-1, this.value)"
+            style="border: none; font-size: 12px; font-weight: 600; color: #1e293b; outline: none; cursor: pointer;">
+        </div>
+        <button class="btn-apple" onclick="captureCitySummaryScreenshot()"
+          style="background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; font-weight: 700;">📸
+          Screenshot</button>
+        <button class="btn-apple btn-danger" onclick="closeFullPage('cityFullPage')"
+          style="background: #fef2f2; color: #ef4444; border: 1px solid #fecaca;">Close ✕</button>
+      </div>
+    </div>
+    <div class="full-page-content" id="cityFullPageContent"
+      style="padding: 24px; background: transparent; display: flex; flex-direction: column; gap: 20px;">
+      <div
+        style="background: white; padding: 24px; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.02);">
+        <table class="glass-table" style="width: 100%;">
+          <thead>
+            <tr>
+              <th style="text-align:left; font-size: 13px; padding-bottom: 15px;">City Name</th>
+              <th style="text-align:center; font-size: 13px; padding-bottom: 15px;">Total Sample Received</th>
+              <th style="text-align:center; font-size: 13px; padding-bottom: 15px;">Total Shared Reports</th>
+              <th style="text-align:right; font-size: 13px; padding-bottom: 15px;">Total Pending Reports</th>
+            </tr>
+          </thead>
+          <tbody id="city-full-page-tbody">
+          </tbody>
+        </table>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 20px; min-height: 350px;">
+        <div class="glass-card"
+          style="background: white; padding: 24px; border-radius: 20px; border: 1px solid #e2e8f0; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+          <h3
+            style="margin-top: 0; font-size: 13px; color: #475569; margin-bottom: 20px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px;">
+            📊 Samples Count by City</h3>
+          <div style="height: 300px; position: relative;">
+            <canvas id="citySamplesChart"></canvas>
+          </div>
+        </div>
+        <div class="glass-card"
+          style="background: white; padding: 24px; border-radius: 20px; border: 1px solid #e2e8f0; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+          <h3
+            style="margin-top: 0; font-size: 13px; color: #475569; margin-bottom: 20px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; text-align: center;">
+            ⚙️ API vs Manual</h3>
+          <div style="height: 300px; position: relative;">
+            <canvas id="apiManualChart"></canvas>
+          </div>
+        </div>
+        <div class="glass-card"
+          style="background: white; padding: 24px; border-radius: 20px; border: 1px solid #e2e8f0; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+          <h3
+            style="margin-top: 0; font-size: 13px; color: #475569; margin-bottom: 20px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; text-align: center;">
+            🚀 Total vs Shared</h3>
+          <div style="height: 300px; position: relative;">
+            <canvas id="totalSharedChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="analyticsFullPage" class="full-page-view" style="background: #f1f5f9;">
+    <div class="full-page-header"
+      style="background: white; border-bottom: 1px solid #e2e8f0; height: 70px; box-shadow: 0 4px 20px rgba(0,0,0,0.02);">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div
+          style="width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, #3b82f6, #2563eb); display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; box-shadow: 0 4px 10px rgba(59,130,246,0.3);">
+          📊</div>
+        <div>
+          <h2 class="modal-title" style="color: #0f172a; font-size: 18px; line-height: 1.2;">Advanced
+            Analytics</h2>
+          <div style="font-size: 11px; color: #64748b; font-weight: 500;">Real-time collection trends &
+            insights</div>
+        </div>
+      </div>
+      <div style="display: flex; gap: 12px; align-items: center;">
+        <button class="btn-apple" onclick="analyzeTrendWithAI()"
+          style="background: #f5f3ff; color: #7c3aed; border: 1px solid #ddd6fe; font-weight: 700;">👨‍💼 Analyze with
+          Bisht Ji</button>
+        <button class="btn-apple" onclick="captureAnalyticsScreenshot()"
+          style="background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; font-weight: 700;">📸 Export
+          Screenshot</button>
+        <button class="btn-apple" onclick="fetchTrendStats(true)"
+          style="background: linear-gradient(135deg, #0ea5e9, #2563eb); border: none; color: white; box-shadow: 0 4px 15px rgba(37,99,235,0.3); font-weight: 700;"><span
+            id="sync-trend-icon" style="display:inline-block;">🔄</span> Sync Data</button>
+        <button class="btn-apple btn-danger" onclick="closeFullPage('analyticsFullPage')"
+          style="background: #fef2f2; color: #ef4444; border: 1px solid #fecaca;">Close ✕</button>
+      </div>
+    </div>
+
+    <div class="full-page-content" style="padding: 24px; background: transparent;">
+
+      <div
+        style="display: flex; gap: 20px; margin-bottom: 24px; flex-wrap: wrap; background: white; padding: 16px 24px; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.02); justify-content: space-between; align-items: center; position: relative; z-index: 500;">
+
+        <div style="display: flex; gap: 24px; align-items: center; flex-wrap: wrap;">
+          <div>
+            <div
+              style="font-size: 10px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.5px;">
+              Custom Date Range</div>
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <input type="date" id="trend-date-start" class="filter-input"
+                style="padding: 8px 12px; background: #f8fafc; border-color: #cbd5e1; font-weight: 600; color: #334155;">
+              <span style="color: #cbd5e1;">→</span>
+              <input type="date" id="trend-date-end" class="filter-input"
+                style="padding: 8px 12px; background: #f8fafc; border-color: #cbd5e1; font-weight: 600; color: #334155;">
+              <button class="btn-apple btn-primary" onclick="fetchTrendStats(true)"
+                style="padding: 8px 16px;">Apply</button>
+            </div>
+          </div>
+
+          <div style="width: 1px; height: 40px; background: #e2e8f0; margin: 0 10px;"></div>
+
+          <div>
+            <div
+              style="font-size: 10px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.5px;">
+              Quick Select</div>
+            <div class="segmented-control"
+              style="background: #f8fafc; padding: 4px; border: 1px solid #e2e8f0; border-radius: 10px;">
+              <button class="seg-btn active" id="btn-trend-7" onclick="setTrendDates(7)">7 Days</button>
+              <button class="seg-btn" id="btn-trend-15" onclick="setTrendDates(15)">15 Days</button>
+              <button class="seg-btn" id="btn-trend-30" onclick="setTrendDates(30)">1 Month</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 20px; align-items: center;">
+          <div style="position: relative; z-index: 100;">
+            <div
+              style="font-size: 10px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.5px;">
+              City Filter</div>
+            <div class="custom-multi-select" id="analytics-city-container">
+              <div class="cms-header" onclick="document.getElementById('analytics-city-drop').classList.toggle('show')">
+                <span id="analytics-city-text">All Cities</span> ▾
+              </div>
+              <div id="analytics-city-drop" class="multi-drop-list" onclick="event.stopPropagation()"
+                style="width:160px;"></div>
+            </div>
+          </div>
+          <div>
+            <div
+              style="font-size: 10px; font-weight: 700; color: #64748b; text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.5px;">
+              Compare By</div>
+            <div class="segmented-control"
+              style="background: #f8fafc; padding: 4px; border: 1px solid #e2e8f0; border-radius: 10px;">
+              <button class="seg-btn active" id="mode-partner" onclick="toggleChartMode('partner')">🏢
+                PPMC / Retail</button>
+              <button class="seg-btn" id="mode-source" onclick="toggleChartMode('source')">⚡ API /
+                Manual</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="audit-ai-box"
+        style="display: none; background: linear-gradient(135deg, #f5f3ff, #f3e8ff); border: 1px solid #ddd6fe; border-radius: 16px; padding: 20px; margin-bottom: 24px; box-shadow: 0 4px 15px rgba(139,92,246,0.1);">
+        <div style="display: flex; gap: 12px; align-items: flex-start;">
+          <div style="font-size: 24px;">👨‍💼</div>
+          <div>
+            <div style="font-weight: 800; color: #5b21b6; margin-bottom: 8px; font-size: 14px;">Bisht Ji's Analysis
+            </div>
+            <div id="audit-ai-text" style="color: #4c1d95; font-size: 13px; line-height: 1.6; font-weight: 500;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; margin-bottom: 24px;">
+
+        <div
+          style="background: white; padding: 20px; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.02); position: relative; overflow: hidden;">
+          <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: #10b981;">
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div
+              style="font-size: 11px; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
+              Total Collections</div>
+            <div
+              style="background: #d1fae5; color: #059669; width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px;">
+              📦</div>
+          </div>
+          <div id="stat-total"
+            style="font-size: 32px; font-weight: 900; color: #0f172a; margin-top: 10px; letter-spacing: -1px;">
+            0</div>
+        </div>
+
+        <div
+          style="background: white; padding: 20px; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.02); position: relative; overflow: hidden;">
+          <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: #f59e0b;">
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div
+              style="font-size: 11px; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
+              Daily Avg</div>
+            <div
+              style="background: #fef3c7; color: #d97706; width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px;">
+              ⚖️</div>
+          </div>
+          <div id="stat-avg"
+            style="font-size: 32px; font-weight: 900; color: #d97706; margin-top: 10px; letter-spacing: -1px;">
+            0</div>
+        </div>
+
+        <div
+          style="background: white; padding: 20px; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.02); position: relative; overflow: hidden;">
+          <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: #ef4444;">
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div
+              style="font-size: 11px; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
+              Total PPMC</div>
+            <div
+              style="background: #fee2e2; color: #dc2626; width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px;">
+              🏥</div>
+          </div>
+          <div id="stat-ppmc"
+            style="font-size: 32px; font-weight: 900; color: #ef4444; margin-top: 10px; letter-spacing: -1px;">
+            0</div>
+        </div>
+
+        <div
+          style="background: white; padding: 20px; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.02); position: relative; overflow: hidden;">
+          <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: #3b82f6;">
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div
+              style="font-size: 11px; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
+              Total Retail</div>
+            <div
+              style="background: #dbeafe; color: #2563eb; width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px;">
+              🏪</div>
+          </div>
+          <div id="stat-retail"
+            style="font-size: 32px; font-weight: 900; color: #3b82f6; margin-top: 10px; letter-spacing: -1px;">
+            0</div>
+        </div>
+
+        <div
+          style="background: white; padding: 20px; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.02); position: relative; overflow: hidden;">
+          <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: #8b5cf6;">
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div
+              style="font-size: 11px; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
+              API Sync</div>
+            <div
+              style="background: #ede9fe; color: #7e22ce; width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px;">
+              🤖</div>
+          </div>
+          <div id="stat-api"
+            style="font-size: 32px; font-weight: 900; color: #8b5cf6; margin-top: 10px; letter-spacing: -1px;">
+            0</div>
+        </div>
+
+        <div
+          style="background: white; padding: 20px; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px rgba(0,0,0,0.02); position: relative; overflow: hidden;">
+          <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: #64748b;">
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <div
+              style="font-size: 11px; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
+              Manual Entry</div>
+            <div
+              style="background: #f1f5f9; color: #475569; width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px;">
+              ✍️</div>
+          </div>
+          <div id="stat-manual"
+            style="font-size: 32px; font-weight: 900; color: #475569; margin-top: 10px; letter-spacing: -1px;">
+            0</div>
+        </div>
+      </div>
+
+      <div
+        style="background: white; padding: 24px; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 10px 30px rgba(0,0,0,0.04); flex: 1; min-height: 450px; display: flex; flex-direction: column;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+          <div>
+            <h3 id="full-chart-title" style="margin: 0 0 4px 0; color: #0f172a; font-size: 18px; font-weight: 800;">
+              Collection
+              Trend Overview</h3>
+            <div id="chart-date-label" style="font-size: 12px; color: #64748b; font-weight: 500;">Loading...
+            </div>
+          </div>
+          <div
+            style="font-size: 11px; color: #94a3b8; background: #f8fafc; padding: 6px 12px; border-radius: 20px; border: 1px solid #e2e8f0;">
+            Powered by Redcliffe AI</div>
+        </div>
+        <div style="flex: 1; position: relative; width: 100%;">
+          <canvas id="fullTrendChart"></canvas>
+        </div>
+      </div>
+
+      <div
+        style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 24px; padding-bottom: 40px;">
+        <!-- Card 1: Partner Mix (Doughnut) -->
+        <div
+          style="background: white; padding: 24px; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.02); display: flex; flex-direction: column; min-height: 340px;">
+          <h3
+            style="margin: 0 0 15px 0; color: #0f172a; font-size: 14px; font-weight: 800; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 0.5px;">
+            <span style="font-size: 18px;">⚖️</span> Partner Distribution
+          </h3>
+          <div style="flex: 1; position: relative; display: flex; align-items: center; justify-content: center;">
+            <canvas id="partnerMixChart"></canvas>
+          </div>
+          <div style="font-size: 11px; text-align: center; color: #64748b; margin-top: 10px; font-weight: 600;">Retail
+            vs PPMC Ratio</div>
+        </div>
+
+        <!-- Card 2: Source Mix (Pie/Doughnut) -->
+        <div
+          style="background: white; padding: 24px; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.02); display: flex; flex-direction: column; min-height: 340px;">
+          <h3
+            style="margin: 0 0 15px 0; color: #0f172a; font-size: 14px; font-weight: 800; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 0.5px;">
+            <span style="font-size: 18px;">🔌</span> Entry Channels
+          </h3>
+          <div style="flex: 1; position: relative; display: flex; align-items: center; justify-content: center;">
+            <canvas id="sourceMixChart"></canvas>
+          </div>
+          <div style="font-size: 11px; text-align: center; color: #64748b; margin-top: 10px; font-weight: 600;">API Sync
+            vs Manual Entry</div>
+        </div>
+
+        <!-- Card 3: City Breakdown (Bar) -->
+        <div
+          style="background: white; padding: 24px; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.02); display: flex; flex-direction: column; min-height: 340px;">
+          <h3
+            style="margin: 0 0 15px 0; color: #0f172a; font-size: 14px; font-weight: 800; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 0.5px;">
+            <span style="font-size: 18px;">🏙️</span> City Leaderboard
+          </h3>
+          <div style="flex: 1; position: relative;">
+            <canvas id="cityVolumeChart"></canvas>
+          </div>
+          <div style="font-size: 11px; text-align: center; color: #64748b; font-weight: 600;">Top Cities by Volume</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="auditFullPage" class="full-page-view">
+    <div class="full-page-header">
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <h2 class="modal-title">🚨 Daily Audit</h2>
+      </div>
+      <div style="display: flex; gap: 10px;"><button class="btn-apple" onclick="downloadAuditCSV()">⬇ Export
+          CSV</button><button class="btn-apple btn-danger" onclick="closeFullPage('auditFullPage')">Close
+          ✕</button></div>
+    </div>
+    <div class="full-page-content" style="padding: 20px;">
+      <div class="toolbar-row"
+        style="margin-bottom: 20px; background: rgba(128,128,128,0.05); padding: 15px; border-radius: 12px; border: 1px solid var(--glass-border);">
+        <div class="filter-row" style="width: 100%; gap: 15px;">
+          <input type="date" id="audit-date-start" class="filter-input" style="flex:1;"><span>to</span><input
+            type="date" id="audit-date-end" class="filter-input" style="flex:1;">
+          <button class="btn-apple btn-primary" onclick="fetchAuditData()">Fetch Data</button>
+          <button class="btn-apple btn-ai-sparkle" onclick="getAiAuditInsights()">✨ Ask Bisht Ji</button>
+          <select id="audit-filter-city" class="filter-input" onchange="filterAndRenderAudit()">
+            <option value="ALL">All Cities</option>
+          </select>
+          <select id="audit-filter-reason" class="filter-input" onchange="filterAndRenderAudit()">
+            <option value="ALL">All Statuses</option>
+            <option value="On Time">On Time</option>
+            <option value="Late">Late</option>
+          </select>
+        </div>
+      </div>
+      <div id="audit-ai-box"
+        style="display:none; margin-bottom: 20px; background: #fdf2f8; padding: 18px; border-radius: 16px; border: 1px solid #fbcfe8; font-size: 14px; line-height: 1.6; box-shadow: 0 4px 12px rgba(236, 72, 153, 0.05);">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+          <span style="font-size: 24px;">👨‍💼</span>
+          <strong style="color: #be185d; font-size: 16px; letter-spacing: -0.3px;">Bisht Ji's Analytics Engine</strong>
+        </div>
+        <div id="audit-ai-text" style="color: #831843; font-weight: 500;">Analyzing filtered trends...</div>
+      </div>
+      <div class="kpi-grid audit-kpis" style="margin-bottom: 20px; grid-template-columns: repeat(4, 1fr);">
+        <div class="glass-card" style="border-bottom: 4px solid var(--primary);">
+          <div class="kpi-num" id="aud-total">0</div>
+          <div class="kpi-lbl">Total Filtered</div>
+        </div>
+        <div class="glass-card" style="border-bottom: 4px solid var(--success);">
+          <div class="kpi-num" id="aud-ontime">0</div>
+          <div class="kpi-lbl">On Time</div>
+        </div>
+        <div class="glass-card" style="border-bottom: 4px solid var(--danger);">
+          <div class="kpi-num" id="aud-late">0</div>
+          <div class="kpi-lbl">Late (>6h)</div>
+        </div>
+        <div class="glass-card" style="border-bottom: 4px solid var(--warning);">
+          <div class="kpi-num" id="aud-pending">0</div>
+          <div class="kpi-lbl">Pending</div>
+        </div>
+      </div>
+      <div style="flex: 1; overflow-y: auto; border: 1px solid var(--border-light); border-radius: 12px;">
+        <table class="glass-table audit-table">
+          <thead>
+            <tr>
+              <th>City & ID</th>
+              <th>Timestamps</th>
+              <th>Status & TAT</th>
+              <th>Remarks</th>
+            </tr>
+          </thead>
+          <tbody id="audit-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================== -->
+  <!-- 🛡️ ADMIN PANEL — FULL PAGE USER MANAGEMENT                  -->
+  <!-- =========================================================== -->
+  <div id="adminPanelPage" class="full-page-view">
+    <div class="full-page-header">
+      <div style="display:flex; align-items:center; gap:15px;">
+        <h2 class="modal-title" style="color:#3b82f6;">🛡️ Admin Panel — User Access Control</h2>
+      </div>
+      <div style="display:flex; gap:10px;">
+        <button class="btn-apple btn-primary" onclick="adminLoadUsers()"
+          style="background:rgba(59,130,246,0.1);color:#3b82f6;">🔄 Refresh Users</button>
+        <button class="btn-apple btn-danger" onclick="closeFullPage('adminPanelPage')">Close ✕</button>
+      </div>
+    </div>
+
+    <div class="full-page-content"
+      style="padding:20px 30px; overflow-y:auto; height:calc(100% - 60px); box-sizing:border-box;">
+
+      <div style="display:flex; flex-direction:column; gap:24px; max-width:1200px; margin:0 auto; padding-bottom:40px;">
+        <!-- ADD / EDIT USER FORM -->
+        <div
+          style="background:var(--card-bg); padding:24px; border:1px solid var(--border-light); border-top:4px solid #3b82f6; border-radius:16px; box-shadow:0 8px 30px rgba(0,0,0,0.04);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
+            <div
+              style="font-size:14px; font-weight:800; color:#3b82f6; letter-spacing:0.4px; text-transform:uppercase;">
+              🛡️ Add / Update User Access</div>
+            <div style="font-size:11px; font-weight:700; color:var(--text-sub);">Set explicit feature and city
+              permissions</div>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 180px; gap:20px; align-items:start;">
+
+            <!-- Left: email + role + perms + cities -->
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <input type="email" id="admin-user-email" placeholder="user@redcliffelabs.com"
+                style="padding:10px 14px; border-radius:10px; border:1px solid var(--border-light); background:var(--input-bg); color:var(--text-main); font-size:13px; font-weight:600; outline:none; width:100%;">
+              <select id="admin-user-role" onchange="adminRoleChanged()"
+                style="padding:10px 14px; border-radius:10px; border:1px solid var(--border-light); background:var(--input-bg); color:var(--text-main); font-size:13px; font-weight:600; outline:none; cursor:pointer;">
+                <option value="User">User (Custom Permissions)</option>
+                <option value="Sub-Admin">Sub-Admin (Full Feature Access)</option>
+                <option value="Admin">Admin (Full Access)</option>
+              </select>
+
+              <!-- Feature checkboxes -->
+              <div id="admin-perms-box" style="margin-top:5px;">
+                <div style="font-size:11px; font-weight:800; color:var(--text-main); margin-bottom:8px;">1. FEATURE
+                  PERMISSIONS</div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                  <label
+                    style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;cursor:pointer;"><input
+                      type="checkbox" value="can_import_data" class="admin-perm-cb"> 📥 Can import data</label>
+                  <label
+                    style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;cursor:pointer;"><input
+                      type="checkbox" value="can_drop_pdfs" class="admin-perm-cb"> 📂 Can drop pdfs</label>
+                  <label
+                    style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;cursor:pointer;"><input
+                      type="checkbox" value="can_create_emails" class="admin-perm-cb"> 📧 Can create emails</label>
+                  <label
+                    style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;cursor:pointer;"><input
+                      type="checkbox" value="can_do_api_match" class="admin-perm-cb"> 🤖 Can do api match</label>
+                  <label
+                    style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;cursor:pointer;"><input
+                      type="checkbox" value="can_extract_wa_export" class="admin-perm-cb"> 📱 Can extract wa
+                    export</label>
+                  <label
+                    style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;cursor:pointer;"><input
+                      type="checkbox" value="can_upload_trfs" class="admin-perm-cb"> 📸 Can upload TRFs</label>
+                  <label
+                    style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;cursor:pointer;"><input
+                      type="checkbox" value="can_check_daily_audit" class="admin-perm-cb"> 🚨 Can check daily
+                    audit</label>
+                  <label
+                    style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;cursor:pointer;"><input
+                      type="checkbox" value="can_check_collection_trend" class="admin-perm-cb"> 📊 Can check collection
+                    trend</label>
+                  <label
+                    style="display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;cursor:pointer;color:#6366f1;"><input
+                      type="checkbox" value="sub_admin_access" class="admin-perm-cb"
+                      onchange="adminSubAdminToggle(this)"> 🛡️ Full access (sub-admin)</label>
+                </div>
+              </div>
+
+              <!-- City / Location Access -->
+              <div id="admin-cities-box" style="margin-top:10px;">
+                <div style="font-size:11px; font-weight:800; color:#6366f1; margin-bottom:8px;">2. LOCATION ACCESS</div>
+                <div id="admin-cities-grid" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:7px;">
+                  <div style="text-align:center;color:var(--text-sub);font-size:11px;grid-column:span 3;">⏳ Loading
+                    cities...</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: action buttons -->
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <button class="btn-apple" onclick="adminSaveUser()"
+                style="background:linear-gradient(135deg,#1d4ed8,#3b82f6);color:white;border:none;padding:12px;font-size:13px;font-weight:700;">💾
+                Save Access</button>
+              <button class="btn-apple" onclick="adminDeleteUser()"
+                style="background:rgba(239,68,68,0.1);color:#ef4444;padding:12px;font-size:13px;font-weight:700;">🗑️
+                Delete User</button>
+              <button class="btn-apple" onclick="adminClearForm()"
+                style="background:var(--card-bg);color:var(--text-sub);padding:10px;font-size:12px;">✕ Clear</button>
+            </div>
+
+          </div>
+          <div id="admin-save-msg" style="margin-top:12px; font-size:12px; font-weight:700; display:none;"></div>
+        </div>
+
+        <!-- USER TABLE -->
+        <div
+          style="background:var(--card-bg); padding:0; overflow:hidden; border:1px solid var(--border-light); border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.03);">
+          <div
+            style="padding:16px 20px; border-bottom:1px solid var(--border-light); display:flex; justify-content:space-between; align-items:center; background:rgba(59,130,246,0.02);">
+            <div style="font-size:14px; font-weight:800; color:var(--text-main);">👥 Registered Users</div>
+            <div id="admin-user-count"
+              style="font-size:11px; font-weight:700; background:#e0e7ff; color:#4f46e5; padding:4px 10px; border-radius:12px;">
+              Loading...</div>
+          </div>
+          <div style="overflow-x:auto;">
+            <table style="width:100%; border-collapse:collapse; font-size:12px;">
+              <thead>
+                <tr style="background:var(--table-header-bg);">
+                  <th
+                    style="padding:10px 16px; text-align:left; font-weight:800; color:var(--text-sub); text-transform:uppercase; font-size:10px; letter-spacing:0.6px;">
+                    User Details</th>
+                  <th
+                    style="padding:10px 16px; text-align:left; font-weight:800; color:var(--text-sub); text-transform:uppercase; font-size:10px; letter-spacing:0.6px;">
+                    Role</th>
+                  <th
+                    style="padding:10px 16px; text-align:left; font-weight:800; color:var(--text-sub); text-transform:uppercase; font-size:10px; letter-spacing:0.6px;">
+                    Permissions</th>
+                  <th
+                    style="padding:10px 16px; text-align:left; font-weight:800; color:var(--text-sub); text-transform:uppercase; font-size:10px; letter-spacing:0.6px;">
+                    Cities</th>
+                  <th
+                    style="padding:10px 16px; text-align:center; font-weight:800; color:var(--text-sub); text-transform:uppercase; font-size:10px; letter-spacing:0.6px;">
+                    Action</th>
+                </tr>
+              </thead>
+              <tbody id="admin-users-tbody">
+                <tr>
+                  <td colspan="5" style="padding:30px; text-align:center; color:var(--text-sub);">⏳ Loading users...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div id="emailGenPage" class="full-page-view">
+    <div class="full-page-header">
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <h2 class="modal-title">📧 E-mail Generator (Editable Drafts)</h2>
+      </div>
+      <div style="display: flex; gap: 10px; align-items: center;"><span
+          style="font-size: 12px; font-weight: 600;">Sender Name:</span><input type="text" id="sender-name"
+          class="filter-input" style="width: 180px;" disabled><button class="btn-apple btn-danger"
+          onclick="closeFullPage('emailGenPage')">Close ✕</button></div>
+    </div>
+    <div class="email-container">
+      <div class="email-sidebar" id="email-tabs-container"></div>
+      <div class="email-compose-area" id="email-compose-area">
+        <div class="compose-box">
+          <div class="compose-header"><span>New Message / Reply All Draft</span></div>
+          <div class="compose-row"><span class="compose-label">To</span><input type="text" id="em-to"
+              class="compose-input"></div>
+          <div class="compose-row"><span class="compose-label">Cc</span><input type="text" id="em-cc"
+              class="compose-input"></div>
+          <div class="compose-row"><span class="compose-label">Subject</span><input type="text" id="em-sub"
+              class="compose-input"></div>
+          <div id="em-body" class="compose-body" contenteditable="true" onfocus="pauseSync()" onblur="resumeSync()">
+          </div>
+          <div class="compose-footer">
+            <button class="btn-apple btn-primary" style="padding: 10px 20px; font-size: 14px;"
+              onclick="generateFinalDraft()">🚀 Generate Mail</button>
+            <button onclick="markAlreadyEmailed()"
+              style="background-color: #ef4444; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; margin-left: 10px;">
+              🗑️ Mark as Already Emailed
+            </button>
+            <button class="btn-apple btn-ai-sparkle" style="padding: 10px 20px; font-size: 14px;"
+              onclick="optimizeDraftWithBishtJi()">✨ Bisht Ji Optimize Text</button>
+          </div>
+        </div>
+      </div>
+      <div class="empty-state" id="email-empty-state">
+        <div style="font-size: 50px;">📬</div>
+        <div>Select a City to preview and edit draft</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="bulkTrfModal" class="full-page-view">
+    <div class="full-page-header">
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <h2 class="modal-title" style="color:#ec4899;">📸 Bulk TRF Scanner & AI Matcher</h2>
+      </div>
+      <div style="display: flex; gap: 10px;">
+        <button class="btn-apple" style="background: rgba(128,128,128,0.1); color: var(--text-main);"
+          onclick="minimizeTrfModal()">🔽 Minimize to Background</button>
+        <button class="btn-apple btn-danger" onclick="closeFullPage('bulkTrfModal')">Close ✕</button>
+      </div>
+    </div>
+
+    <div class="full-page-content" style="padding: 20px 30px; height: calc(100% - 60px); box-sizing: border-box;">
+
+      <div style="display: flex; width: 100%; height: 100%; gap: 20px;">
+
+        <div
+          style="flex: 6; display: flex; flex-direction: column; align-items: center; overflow-y: auto; padding-right: 10px;">
+          <div id="trf-drop-area" class="file-drop-area"
+            style="border: 2px dashed #ec4899; background: rgba(236, 72, 153, 0.05); width: 100%; max-width: 600px; padding: 40px; text-align: center; border-radius: 12px; cursor: pointer; transition: 0.3s;"
+            onclick="document.getElementById('trf-file-input').click()">
+            <div style="font-size: 50px; margin-bottom: 10px;">📸</div>
+            <div style="font-size: 16px; font-weight: 700; color: #ec4899;">Drag & Drop Multiple TRF Images
+              Here</div>
+            <div style="font-size: 12px; color: var(--text-sub); margin-top: 5px;">Supports PNG, JPG, JPEG
+            </div>
+          </div>
+          <input type="file" id="trf-file-input" accept="image/*" multiple style="display: none;"
+            onchange="handleTrfFiles(this.files)">
+
+          <div id="trf-main-progress-container"
+            style="display:none; flex-direction: column; gap: 8px; width: 100%; max-width: 600px; margin-top: 20px;">
+            <div style="display: flex; justify-content: space-between; font-weight: 700; font-size: 14px;">
+              <span id="trf-status-text" style="color: #ec4899;">Scanning...</span>
+              <span id="trf-main-count">0/0</span>
+            </div>
+            <div
+              style="width: 100%; background: var(--border-light); height: 12px; border-radius: 6px; overflow: hidden;">
+              <div id="trf-main-bar"
+                style="height: 100%; width: 0%; background: linear-gradient(90deg, #ec4899, #8b5cf6); transition: width 0.3s ease;">
+              </div>
+            </div>
+            <div id="trf-log-box"
+              style="height: 250px; overflow-y: auto; background: #f8fafc; border: 1px solid #e2e8f0; padding: 10px; font-size: 12px; font-family: monospace; border-radius: 8px; margin-top: 10px;">
+            </div>
+          </div>
+        </div>
+
+        <div
+          style="flex: 4; border: 1px solid #e2e8f0; background: #f8fafc; display: flex; flex-direction: column; border-radius: 12px; overflow: hidden; height: 100%; max-height: 500px;">
+          <div
+            style="padding: 15px; background: white; border-bottom: 1px solid #cbd5e1; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <b style="color: #0f172a; font-size: 14px;">⏳ Awaiting Details</b>
+              <div style="font-size: 10px; color: #64748b; margin-top: 2px;">Data not found in sheet yet
+              </div>
+            </div>
+            <button onclick="fetchPendingTRFs()" class="btn-apple"
+              style="padding: 6px 10px; font-size: 11px; background: #e0f2fe; color: #2563eb; border: 1px solid #bae6fd;">🔄
+              Refresh</button>
+          </div>
+
+          <div id="pending-trf-list" style="padding: 15px; overflow-y: auto; flex: 1;">
+            <div style="text-align:center; color:#94a3b8; font-size:12px; margin-top:40px;">Click Refresh to
+              load TRFs ⏳</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div id="floating-trf-widget"
+    style="display:none; position: fixed; bottom: 20px; left: 20px; width: 260px; background: var(--card-bg); border: 1px solid #ec4899; border-radius: 12px; box-shadow: 0 10px 30px rgba(236,72,153,0.3); padding: 15px; z-index: 9999; cursor: pointer; backdrop-filter: blur(10px);"
+    onclick="openFullPage('bulkTrfModal'); this.style.display='none';">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+      <span style="font-size: 12px; font-weight: 800; color: #ec4899;">📸 TRF Background Sync</span>
+      <span id="float-trf-count" style="font-size: 11px; font-weight: 700; color: var(--text-sub);">0/0</span>
+    </div>
+    <div style="width: 100%; background: var(--border-light); height: 6px; border-radius: 4px; overflow: hidden;">
+      <div id="float-trf-bar"
+        style="height: 100%; width: 0%; background: linear-gradient(90deg, #ec4899, #8b5cf6); transition: width 0.3s ease;">
+      </div>
+    </div>
+    <div id="float-trf-text"
+      style="font-size: 11px; color: var(--text-sub); font-weight: 600; margin-top: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+      Processing...</div>
+  </div>
+
+  <div id="floating-trf-viewer"
+    style="display: none; position: fixed; right: 20px; bottom: 20px; width: 450px; height: 550px; background: var(--card-bg); border-radius: 12px; box-shadow: 0 15px 40px rgba(0,0,0,0.4); z-index: 999999; border: 1px solid var(--border-light); flex-direction: column; overflow: hidden;">
+    <div id="trf-drag-header"
+      style="background: #f1f5f9; padding: 10px 15px; cursor: grab; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0;">
+      <b style="font-size:13px; color:#334155;">📸 TRF Manager</b>
+      <div style="display:flex; gap:8px;">
+        <button id="trf-ocr-btn" class="btn-apple"
+          style="padding:4px 8px; font-size:10px; background:#fef08a; color:#854d0e; display:none;"
+          onclick="readTrfText()">📄 Read Text</button>
+        <button id="trf-rotate-btn" class="btn-apple"
+          style="padding:4px 8px; font-size:10px; background:#f3e8ff; color:#7e22ce; display:none;"
+          onclick="rotateTrf()">🔄 Rotate</button>
+        <a id="trf-zoom-btn" href="#" target="_blank" class="btn-apple"
+          style="padding:4px 8px; font-size:10px; background:#e0f2fe; color:#2563eb; text-decoration:none; display:none;">🔍
+          Zoom</a>
+        <button id="trf-delete-btn" class="btn-apple"
+          style="padding:4px 8px; font-size:10px; background:#fee2e2; color:#ef4444;" onclick="deleteCurrentTrf()">🗑️
+          Delete</button>
+        <button class="btn-apple" style="padding:4px 8px; font-size:10px; background:#e2e8f0; color:#475569;"
+          onclick="document.getElementById('floating-trf-viewer').style.display='none'">✕ Close</button>
+      </div>
+    </div>
+
+    <iframe id="trf-iframe" style="flex:1; width:100%; border:none; background:#000; display:none;"></iframe>
+
+    <div id="trf-ocr-panel"
+      style="display:none; height: 180px; background: #f8fafc; border-top: 1px solid #cbd5e1; padding: 12px; overflow-y: auto; font-size: 11px; color: #334155; line-height: 1.5;">
+      <div style="text-align:center; margin-top: 30px; color:#94a3b8;">🤖 AI is reading the TRF... Please wait...
+      </div>
+    </div>
+
+    <div id="trf-upload-area"
+      style="flex:1; display:none; flex-direction:column; align-items:center; justify-content:center; padding: 20px; background: #f8fafc; text-align:center;">
+      <div
+        style="border: 2px dashed #ec4899; border-radius: 12px; width: 100%; height: 100%; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; background:rgba(236, 72, 153, 0.05); transition: 0.3s;"
+        onclick="document.getElementById('manual-trf-input').click()"
+        onmouseover="this.style.background='rgba(236, 72, 153, 0.1)'"
+        onmouseout="this.style.background='rgba(236, 72, 153, 0.05)'">
+        <div style="font-size: 50px; margin-bottom: 10px;">📤</div>
+        <div style="font-size: 16px; font-weight: bold; color: #ec4899;">Click to Upload TRF</div>
+        <div style="font-size: 12px; color: var(--text-sub); margin-top: 5px;">Upload clearly visible TRF photo
+        </div>
+      </div>
+    </div>
+
+    <input type="hidden" id="viewer-rid">
+    <input type="hidden" id="viewer-city">
+  </div>
+
+  <input type="file" id="manual-trf-input" accept="image/*" style="display:none;"
+    onchange="uploadSingleTrf(this.files)">
+
+  <div id="trfConfirmModal" class="modal-overlay" style="z-index: 100000;">
+    <div class="modal-content" style="max-width: 450px; text-align: center;">
+      <div style="font-size: 45px; margin-bottom: 5px;">🤔</div>
+      <h2 style="color: var(--warning); margin-bottom: 10px; font-size: 18px;">Partial Match Found!</h2>
+      <div id="trf-confirm-text"
+        style="font-size: 13px; color: var(--text-main); margin-bottom: 20px; line-height: 1.6; background: #fffbeb; padding: 15px; border-radius: 8px; border: 1px solid #fde68a; text-align: left;">
+        Checking details...</div>
+      <div style="display: flex; gap: 10px; margin-top: 10px;">
+        <button class="btn-apple"
+          style="flex: 1; background: var(--success); color: white; border: none; font-size: 14px; padding: 10px;"
+          onclick="handleTrfConfirm(true)">✅ Yes, Upload It</button>
+        <button class="btn-apple"
+          style="flex: 1; background: var(--danger); color: white; border: none; font-size: 14px; padding: 10px;"
+          onclick="handleTrfConfirm(false)">❌ No, Skip It</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 🎨 ADVANCED THEME CENTER MODAL (PHASE 2) -->
+  <!-- ========================================== -->
+  <div id="themeCenterModal" class="modal-overlay" style="z-index: 100000;">
+    <div class="modal-content">
+      <div class="tc-header">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+          <div>
+            <h2>🎨 Hyper-Glass 2.0 Studio</h2>
+            <p>Customize your workspace aesthetic with premium styles.</p>
+          </div>
+          <button class="close-btn" style="background: rgba(255,255,255,0.2); color:white; width: 36px; height: 36px;"
+            onclick="closeModal('themeCenterModal')">✕</button>
+        </div>
+      </div>
+
+      <div class="tc-body">
+        <div class="tc-section-label">Premium Presets</div>
+        <div class="theme-presets-grid">
+          <div class="theme-preset-card active-theme" onclick="setThemeStyle('glassmorphism', this)">
+            <div class="tc-preview"
+              style="background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(255,255,255,0.4)); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.9);">
+            </div>
+            <div class="tc-name">Glassmorphism</div>
+            <div class="tc-desc">Deep frosted blur</div>
+          </div>
+          <div class="theme-preset-card" onclick="setThemeStyle('skeuomorphism', this)">
+            <div class="tc-preview"
+              style="background: linear-gradient(160deg, #f0f4f8, #dde3ec); border: 1px solid #a0aec0; box-shadow: inset 0 2px 4px white, inset 0 -2px 4px rgba(0,0,0,0.1), 2px 3px 6px rgba(0,0,0,0.15);">
+            </div>
+            <div class="tc-name">Skeuomorphism</div>
+            <div class="tc-desc">Dimensional realism</div>
+          </div>
+          <div class="theme-preset-card" onclick="setThemeStyle('neo-brutalism', this)">
+            <div class="tc-preview" style="background: #fffef0; border: 2.5px solid #111; box-shadow: 4px 4px 0 #111;">
+            </div>
+            <div class="tc-name">Neo Brutalism</div>
+            <div class="tc-desc">Stark & raw contrast</div>
+          </div>
+          <div class="theme-preset-card" onclick="setThemeStyle('claymorphism', this)">
+            <div class="tc-preview"
+              style="background: #ffffff; border-radius: 16px; box-shadow: 6px 6px 14px rgba(160,180,240,0.4), -4px -4px 10px white, inset 0 2px 6px white, inset 0 -2px 6px rgba(140,160,220,0.2);">
+            </div>
+            <div class="tc-name">Claymorphism</div>
+            <div class="tc-desc">Soft puffy depth</div>
+          </div>
+          <div class="theme-preset-card" onclick="setThemeStyle('minimalism', this)">
+            <div class="tc-preview" style="background: white; border: 1px solid #e2e8f0;"></div>
+            <div class="tc-name">Minimalism</div>
+            <div class="tc-desc">Clean typography</div>
+          </div>
+          <div class="theme-preset-card" onclick="setThemeStyle('liquid-glass', this)">
+            <div class="tc-preview"
+              style="background: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.8); box-shadow: 0 4px 15px rgba(168,85,247,0.2);">
+            </div>
+            <div class="tc-name">Liquid Glass</div>
+            <div class="tc-desc">Animated flowing core</div>
+          </div>
+        </div>
+
+        <div class="tc-section-label">Custom Engine Builder</div>
+        <div class="tc-builder">
+          <div class="tc-field">
+            <label>Base Primary Accent</label>
+            <input type="color" id="tc-color-primary" value="#5b8dee">
+          </div>
+          <div class="tc-field">
+            <label>Danger/Alert Accent</label>
+            <input type="color" id="tc-color-danger" value="#dc2626">
+          </div>
+          <div class="tc-field" style="grid-column: span 2;">
+            <label>Inject Custom Wallpaper (URL)</label>
+            <input type="text" id="tc-bg-url" placeholder="https://images.unsplash.com/... (optional)">
+          </div>
+          <div class="tc-field" style="grid-column: span 2;">
+            <button class="tc-apply-btn" onclick="applyCustomTheme()">⚡ INJECT CUSTOM PARAMETERS</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mac-window" id="mainWindow">
+    <div class="title-bar">
+      <div class="app-title" id="dynamic-app-title">
+        <div class="hamburger" onclick="toggleSidebar()">☰</div>
+        <div class="branding-group">
+          <div class="logos-wrapper">
+            <img src="https://lh3.googleusercontent.com/d/1rWGnTk485-dqc_ADtLn_RuSmDzgomV0U" alt="Redcliffe Labs"
+              class="brand-logo-img" style="height: 28px; object-fit: contain;">
+            <span class="spacer-x-char">✖</span>
+            <img src="https://www.medibuddy.in/assets/logos/medibuddyWithName.svg" alt="MediBuddy"
+              class="brand-logo-img">
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <div class="live-indicator" onclick="window.forceDashboardRefresh()">
+          <div class="live-dot" id="sync-dot"></div>
+          <span id="sync-text">Force Sync</span> 🔄
+        </div>
+
+        <div class="user-profile" onclick="window.handleLogout(event)" title="Click to Logout">
+          <img id="user-avatar" src="https://ui-avatars.com/api/?name=User&background=007AFF&color=fff" alt="User">
+          <span id="user-display-name">Loading...</span>
+        </div>
+
+        <button type="button" class="theme-toggle" id="dark-light-btn" onclick="toggleTheme()" title="Toggle Dark Mode"
+          style="border-radius: 50%; width: 36px; height: 36px;">🌙</button>
+
+        <div style="position: relative; display: inline-block;">
+          <button type="button" class="theme-toggle"
+            onclick="document.getElementById('theme-dropdown').classList.toggle('show'); event.stopPropagation();"
+            title="Change Theme Colors"
+            style="background: var(--glass-bg); border-radius: 50%; width: 36px; height: 36px;">🎨</button>
+
+          <div id="theme-dropdown" class="multi-drop-list" onclick="event.stopPropagation()"
+            style="right: 0; left: auto; width: 180px; padding: 10px; border-radius: 16px; background: var(--modal-bg); backdrop-filter: blur(25px); border: 1px solid var(--glass-border); top: 110%;">
+            <div
+              style="font-size: 10px; font-weight: 800; color: var(--text-sub); margin-bottom: 8px; text-transform: uppercase;">
+              Color Presets</div>
+            <div
+              onclick="setUiTheme('theme-ocean'); document.getElementById('theme-dropdown').classList.remove('show');"
+              style="padding: 6px 10px; cursor:pointer; border-radius: 6px; margin-bottom: 6px; background: #e0f2fe; color: #0369a1; font-size: 11px; font-weight: 700; border: 1px solid #bae6fd; transition: 0.2s;"
+              onmouseover="this.style.filter='brightness(0.9)'" onmouseout="this.style.filter='none'">🌊 Ocean Glass
+            </div>
+            <div
+              onclick="setUiTheme('theme-emerald'); document.getElementById('theme-dropdown').classList.remove('show');"
+              style="padding: 6px 10px; cursor:pointer; border-radius: 6px; margin-bottom: 6px; background: #d1fae5; color: #047857; font-size: 11px; font-weight: 700; border: 1px solid #a7f3d0; transition: 0.2s;"
+              onmouseover="this.style.filter='brightness(0.9)'" onmouseout="this.style.filter='none'">🍃 Emerald Mist
+            </div>
+            <div
+              onclick="setUiTheme('theme-sunset'); document.getElementById('theme-dropdown').classList.remove('show');"
+              style="padding: 6px 10px; cursor:pointer; border-radius: 6px; margin-bottom: 6px; background: #ffedd5; color: #c2410c; font-size: 11px; font-weight: 700; border: 1px solid #fed7aa; transition: 0.2s;"
+              onmouseover="this.style.filter='brightness(0.9)'" onmouseout="this.style.filter='none'">🌇 Sunset Liquid
+            </div>
+            <div
+              onclick="setUiTheme('theme-aurora'); document.getElementById('theme-dropdown').classList.remove('show');"
+              style="padding: 6px 10px; cursor:pointer; border-radius: 6px; background: #1e293b; color: #f8fafc; font-size: 11px; font-weight: 700; border: 1px solid #334155; transition: 0.2s;"
+              onmouseover="this.style.filter='brightness(1.2)'" onmouseout="this.style.filter='none'">🌌 Midnight Aurora
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="theme-toggle" id="theme-btn" onclick="openModal('themeCenterModal')"
+          title="Advanced Settings" style="border-radius: 50%; width: 36px; height: 36px;">⚙️</button>
+      </div>
+    </div>
+    <div class="app-content">
+      <div id="mobile-overlay" class="mobile-overlay" onclick="toggleSidebar()"></div>
+      <div class="sidebar" id="sidebar">
+        <div class="kpi-grid">
+          <div class="glass-card full-width" id="card-pending" style="border-bottom: 3px solid var(--danger);"
+            onclick="switchTab('pending')">
+            <div class="kpi-num" style="color: var(--danger);" id="kpi-pending">0</div>
+            <div class="kpi-lbl">Pending</div>
+          </div>
+          <div class="glass-card" id="card-create" style="border-bottom: 3px solid var(--primary);"
+            onclick="switchTab('create')">
+            <div class="kpi-num" style="color: var(--primary);" id="kpi-create">0</div>
+            <div class="kpi-lbl">To Create</div>
+          </div>
+          <div class="glass-card" id="card-incomplete" style="border-bottom: 3px solid var(--warning);"
+            onclick="switchTab('incomplete')">
+            <div class="kpi-num" style="color: var(--warning);" id="kpi-incomplete">0</div>
+            <div class="kpi-lbl">Incomplete</div>
+          </div>
+          <div class="glass-card full-width" id="card-shared" style="border-bottom: 3px solid var(--success);"
+            onclick="switchTab('shared')">
+            <div class="kpi-num" style="color: var(--success);" id="kpi-shared">0</div>
+            <div class="kpi-lbl">Shared</div>
+          </div>
+          <div class="glass-card full-width" id="card-log" style="border-bottom: 3px solid var(--text-main);"
+            onclick="switchTab('log')">
+            <div class="kpi-num" id="kpi-log">0</div>
+            <div class="kpi-lbl">Todays Logs</div>
+          </div>
+        </div>
+        <div style="text-align: center; font-size: 11px; color: var(--text-sub); font-weight: 600;">Last Synced:
+          <span id="last-update" style="color:var(--text-main);">--:--</span>
+        </div>
+        <div class="summary-box">
+          <div class="summary-header"><span>CITY SUMMARY</span><span style="cursor:pointer;"
+              onclick="openFullPage('cityFullPage')">⤢</span></div>
+          <div class="city-list-wrapper" id="city-summary" style="max-height: 150px;"></div>
+        </div>
+
+        <div
+          style="background: var(--card-bg); backdrop-filter: blur(30px); border-radius: 18px; border: 1px solid var(--glass-border); padding: 14px 14px 12px; margin-top: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.07); display: flex; flex-direction: column; gap: 10px; min-height: 220px; transition: all 0.3s ease; overflow: hidden; position: relative;">
+          <!-- Premium top accent gradient bar -->
+          <div
+            style="position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, #10b981 0%, #3b82f6 60%, transparent 100%); border-radius: 18px 18px 0 0; pointer-events: none;">
+          </div>
+          <!-- Header row -->
+          <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 3px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div
+                style="width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(135deg, #10b981, #059669); display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 3px 8px rgba(16,185,129,0.35);">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                </svg>
+              </div>
+              <div>
+                <div
+                  style="font-size: 11px; font-weight: 800; color: var(--text-main); letter-spacing: -0.2px; line-height: 1.2;">
+                  Collection Trend</div>
+                <div
+                  style="font-size: 9px; font-weight: 600; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.5px;">
+                  Last 5 days</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 5px;">
+              <select id="mini-chart-city" onchange="renderMiniChart()"
+                style="font-size: 9px; padding: 2px 5px; border-radius: 5px; border: 1px solid var(--border-light); background: var(--input-bg); color: var(--text-main); outline: none; cursor: pointer; font-weight: 700; max-width: 76px;">
+                <option value="ALL">All Cities</option>
+              </select>
+              <button onclick="openFullPage('analyticsFullPage'); renderFullChart();" title="Full Analytics"
+                style="background: var(--input-bg); border: 1px solid var(--border-light); color: var(--text-sub); width: 22px; height: 22px; border-radius: 5px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px; transition: 0.2s; flex-shrink: 0; padding: 0;"
+                onmouseover="this.style.borderColor='var(--primary)';this.style.color='var(--primary)'"
+                onmouseout="this.style.borderColor='var(--border-light)';this.style.color='var(--text-sub)'">⤢</button>
+            </div>
+          </div>
+          <!-- KPI Stats: Total + PPMC/Retail Split -->
+          <div style="display: grid; grid-template-columns: 1.1fr 1fr; gap: 8px;">
+            <div
+              style="background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(16,185,129,0.05)); border: 1px solid rgba(16,185,129,0.2); border-radius: 10px; padding: 9px 11px;">
+              <div
+                style="font-size: 9px; font-weight: 700; color: #059669; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 3px;">
+                5-Day Total</div>
+              <div id="mini-chart-badge"
+                style="font-size: 24px; font-weight: 900; color: #065f46; letter-spacing: -0.5px; line-height: 1.1;">--
+              </div>
+            </div>
+            <div style="display: grid; grid-template-rows: 1fr 1fr; gap: 5px;">
+              <div
+                style="background: rgba(239,68,68,0.07); border: 1px solid rgba(239,68,68,0.18); border-radius: 7px; padding: 4px 8px; display: flex; justify-content: space-between; align-items: center;">
+                <span
+                  style="font-size: 9px; font-weight: 800; color: #ef4444; text-transform: uppercase; letter-spacing: 0.3px;">PPMC</span>
+                <span id="mini-ppmc-badge"
+                  style="font-size: 14px; font-weight: 900; color: #dc2626; line-height: 1;">--</span>
+              </div>
+              <div
+                style="background: rgba(59,130,246,0.07); border: 1px solid rgba(59,130,246,0.18); border-radius: 7px; padding: 4px 8px; display: flex; justify-content: space-between; align-items: center;">
+                <span
+                  style="font-size: 9px; font-weight: 800; color: #3b82f6; text-transform: uppercase; letter-spacing: 0.3px;">Retail</span>
+                <span id="mini-retail-badge"
+                  style="font-size: 14px; font-weight: 900; color: #2563eb; line-height: 1;">--</span>
+              </div>
+            </div>
+          </div>
+          <!-- Chart Canvas -->
+          <div style="flex: 1; position: relative; width: 100%; min-height: 95px;">
+            <canvas id="miniTrendChart"></canvas>
+          </div>
+        </div>
+
+        <button class="btn-apple btn-primary" style="margin-bottom: 5px; box-shadow: 0 4px 10px rgba(0,122,255,0.3);"
+          onclick="openModal('uploadCsvModal')">📥 Import Data</button>
+        <button class="btn-apple" style="background:rgba(168, 85, 247, 0.1); color:#a855f7; margin-bottom: 5px;"
+          onclick="openModal('dropzoneModal')">📂 Smart PDF Dropzone</button>
+        <button class="btn-apple" style="background:rgba(59, 130, 246, 0.1); color:#3b82f6; margin-bottom: 5px;"
+          onclick="openEmailGenerator()">📧 E-mail Generator</button>
+        <button class="btn-apple" style="background:rgba(234, 179, 8, 0.1); color:#eab308; margin-bottom: 5px;"
+          onclick="handleApiButtonClick()">
+          🤖 API Auto-Match
+        </button>
+        <button class="btn-apple" style="background:rgba(16,185,129,0.1); color:var(--success); margin-bottom: 5px;"
+          onclick="openModal('waModal')">📱 WA Export</button>
+
+        <button class="btn-apple" style="background:rgba(236, 72, 153, 0.1); color:#ec4899; margin-bottom: 5px;"
+          onclick="openFullPage('bulkTrfModal')">📸 Bulk TRF Scanner</button>
+
+        <div id="mini-trf-progress-container"
+          style="display:none; flex-direction: column; gap: 4px; padding: 10px; background: var(--card-bg); border: 1px solid var(--border-light); border-radius: 8px; margin-bottom: 5px;">
+          <div
+            style="font-size: 10px; font-weight: 700; color: var(--text-sub); display: flex; justify-content: space-between;">
+            <span>TRF Uploading...</span><span id="mini-trf-count">0/0</span>
+          </div>
+          <div style="width: 100%; background: var(--border-light); height: 6px; border-radius: 4px; overflow: hidden;">
+            <div id="mini-trf-bar" style="height: 100%; width: 0%; background: #ec4899; transition: width 0.3s ease;">
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-apple btn-danger" onclick="openFullPage('auditFullPage')">🚨 Daily Audit</button>
+      </div>
+
+      <div class="main-view">
+        <div class="toolbar">
+          <div class="toolbar-row">
+            <div class="segmented-control">
+              <button class="seg-btn active" id="tab-pending" onclick="switchTab('pending')">Pending</button>
+              <button class="seg-btn" id="tab-create" onclick="switchTab('create')">To Create</button>
+              <button class="seg-btn" id="tab-incomplete" onclick="switchTab('incomplete')">Incomplete</button>
+              <button class="seg-btn" id="tab-shared" onclick="switchTab('shared')">Shared</button>
+              <button class="seg-btn" id="tab-log" onclick="switchTab('log')">Todays Logs</button>
+            </div>
+            <div class="search-wrapper"><span class="search-icon" id="search-icon">🔍</span><input type="text"
+                id="search-input" class="search-input" placeholder="Search ID, Name..." oninput="handleSearch()"
+                onfocus="pauseSync()" onblur="resumeSync()"></div>
+          </div>
+          <div class="toolbar-row">
+            <div class="filter-row" style="flex:1;">
+              <input type="date" id="date-start" class="filter-input"><span>to</span><input type="date" id="date-end"
+                class="filter-input">
+              <button class="btn-apple btn-primary" onclick="fetchData(false)">Apply</button>
+              <button class="btn-apple" onclick="resetFilters()">Reset</button>
+              <div class="custom-multi-select" id="pending-select-container">
+                <div class="cms-header" onclick="document.getElementById('pending-drop').classList.toggle('show')"><span
+                    id="pending-drop-text">All Pending</span> ▾</div>
+                <div id="pending-drop" class="multi-drop-list" onclick="event.stopPropagation()" style="width:180px;">
+                  <label><input type="radio" name="pending_time" value="ALL" checked
+                      onchange="document.getElementById('pending-time-filter').value=this.value; document.getElementById('pending-drop-text').innerText='All Pending'; updateUI();">
+                    All Pending</label>
+                  <label><input type="radio" name="pending_time" value="OLD"
+                      onchange="document.getElementById('pending-time-filter').value=this.value; document.getElementById('pending-drop-text').innerText='Old Pending (Old)'; updateUI();">
+                    Old Pending (Old)</label>
+                  <label><input type="radio" name="pending_time" value="TODAY"
+                      onchange="document.getElementById('pending-time-filter').value=this.value; document.getElementById('pending-drop-text').innerText='Today Pending'; updateUI();">
+                    Today's Pending</label>
+                  <hr style="margin:6px 0; border:none; border-top:1px solid #e2e8f0;">
+                  <label style="color:#ef4444; font-weight:700;"><input type="checkbox" id="no-high-tat-cb"
+                      onchange="updateUI()"> 🚫 Hide High TAT</label>
+                </div>
+              </div>
+              <input type="hidden" id="pending-time-filter" value="ALL">
+              <div class="custom-multi-select" id="city-select-container">
+                <div class="cms-header" onclick="document.getElementById('city-drop').classList.toggle('show')"><span
+                    id="city-drop-text">All Cities</span> ▾</div>
+                <div id="city-drop" class="multi-drop-list" onclick="event.stopPropagation()"></div>
+              </div>
+              <div class="custom-multi-select" id="type-select-container">
+                <div class="cms-header" onclick="document.getElementById('type-drop').classList.toggle('show')"><span
+                    id="type-drop-text">All Partners</span> ▾</div>
+                <div id="type-drop" class="multi-drop-list" onclick="event.stopPropagation()"></div>
+              </div>
+              <div class="custom-multi-select" id="user-select-container">
+                <div class="cms-header" onclick="document.getElementById('user-drop').classList.toggle('show')"><span
+                    id="user-drop-text">All Users</span> ▾</div>
+                <div id="user-drop" class="multi-drop-list" onclick="event.stopPropagation()">
+                  <label><input type="checkbox" value="ALL" checked onchange="handleMultiCheck('user')"> All
+                    Users</label>
+                  <label><input type="checkbox" value="API" onchange="handleMultiCheck('user')"> API
+                    User</label>
+                  <label><input type="checkbox" value="Manual" onchange="handleMultiCheck('user')">
+                    Manual User</label>
+                </div>
+              </div>
+            </div>
+            <div class="filter-row" style="gap: 10px; width: 100%; justify-content: space-between;">
+              <div class="tat-container">
+                <span class="tat-label">TAT Base:</span>
+                <div class="tat-toggle"
+                  style="background: #f1f5f9; padding: 4px; border-radius: 8px; display: inline-flex; gap: 4px;">
+                  <button class="tat-btn" id="tat-col" onclick="setTatBase('col')"
+                    style="border:none; padding: 4px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; background: transparent; color: #64748b;">Col.</button>
+                  <button class="tat-btn" id="tat-sub" onclick="setTatBase('sub')"
+                    style="border:none; padding: 4px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; background: transparent; color: #64748b;">Sub.</button>
+                  <button class="tat-btn" id="tat-creat" onclick="setTatBase('creat')"
+                    style="border:none; padding: 4px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; background: #3b82f6; color: #fff;">Creat.</button>
+                </div>
+              </div>
+
+              <div style="display: flex; gap: 10px; align-items: center;">
+                <button id="copy-trf-btn" onclick="showIncompleteTRFPopup()"
+                  style="display:none; background:#ef4444; color:white; border:none; padding:8px 14px; border-radius:6px; font-weight:bold; cursor:pointer; font-size:13px; box-shadow:0 2px 4px rgba(239, 68, 68, 0.3); transition: 0.2s;">
+                  📋 Copy Missing TRFs
+                </button>
+
+                <button class="btn-apple btn-primary" onclick="openSmartExportModal()"
+                  style="background: linear-gradient(135deg, #6366f1, #8b5cf6); border: none; padding: 8px 14px; font-size: 13px;">
+                  ✨ Smart Export
+                </button>
+              </div>
+            </div>
+
+
+            <div class="table-container">
+              <table class="glass-table">
+                <thead>
+                  <tr>
+                    <th width="15%">Date / Loc</th>
+                    <th width="20%">IDs (Bkg/Req)</th>
+                    <th width="30%">Patient Details</th>
+                    <th width="25%">Status & Action</th>
+                    <th width="10%" style="text-align: right;">Exp</th>
+                  </tr>
+                </thead>
+                <tbody id="main-list"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+
+  <!-- Environment Configuration -->
+  <script>
+    window.ENV_IS_SHEET = false;
+    window.ENV_USER_EMAIL = "";
+  </script>
+
+  <!-- Core Application Scripts -->
+  <script src="js/env-config.js"></script>
+  <script type="module" src="js/firebase-auth.js"></script>
+  <script src="js/app-core.js"></script>
+  <script src="js/export-engine.js"></script>
+  <script src="js/motion-ui.js"></script>
+</body>
+
+</html>
